@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: bounceInDown 1s;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s;
+            backdrop-filter: blur(10px);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"], input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #764ba2;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background: #5b368d;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            animation: fadeInUp 1s;
+        }
+
+        .error {
+            color: #ff6b6b;
+        }
+
+        @keyframes bounceInDown {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            }
+            0% {
+                opacity: 0;
+                transform: translate3d(0, -3000px, 0);
+            }
+            60% {
+                opacity: 1;
+                transform: translate3d(0, 25px, 0);
+            }
+            80% {
+                transform: translate3d(0, -10px, 0);
+            }
+            100% {
+                transform: translate3d(0, 5px, 0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translate3d(0, 40px, 0);
+                opacity: 0;
+            }
+            to {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            animation: backgroundAnimation 10s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="animate__animated animate__bounceInDown">Random Password Generator</h1>
+    <form action="/generate" method="post">
+        <label for="length">Password Length:</label>
+        <input type="number" id="length" name="length" required>
+        <br>
+        <input type="checkbox" id="uppercase" name="uppercase">
+        <label for="uppercase">Include Uppercase</label>
+        <br>
+        <input type="checkbox" id="lowercase" name="lowercase">
+        <label for="lowercase">Include Lowercase</label>
+        <br>
+        <input type="checkbox" id="numbers" name="numbers">
+        <label for="numbers">Include Numbers</label>
+        <br>
+        <input type="checkbox" id="specials" name="specials">
+        <label for="specials">Include Special Characters</label>
+        <br><br>
+        <button type="submit" class="animate__animated animate__pulse animate__infinite">Generate Password</button>
+    </form>
+
+    {% if password %}
+    <div class="result animate__animated animate__fadeInUp">
+        <h2>Generated Password: {{ password }}</h2>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="result animate__animated animate__fadeInUp error">
+        <h2>Error: {{ error }}</h2>
+    </div>
+    {% endif %}
+</body>
+</html>
+
