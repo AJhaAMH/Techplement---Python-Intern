@@ -1,4 +1,4 @@
 #!/bin/bash
-cd week1_tasks
+cd week1-tasks
 python app.py
 
